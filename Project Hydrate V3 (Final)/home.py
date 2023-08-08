@@ -199,81 +199,98 @@ def add():
     textbox.delete(0, tk.END)
     textbox.insert(tk.END, str(new_value))
 
-# Apply changes to their hydration status.
+# Function to apply changes to user's hydration status based on input event
 def apply(event):
+    # Check if the textbox is empty
     if (textbox.get() == ""):
         textbox.delete(0, tk.END)
         textbox.insert(tk.END, 0)
     
+    # Get the current value from the textbox
     current_value = int(textbox.get())
+    
+    # Create a visual effect by temporarily moving the set button
     set_canvas.move(set_button, 0, 2)
     set_canvas.after(100, lambda: set_canvas.move(set_button, 0, -2))
     
+    # Clear the textbox and set it to 0
     textbox.delete(0, tk.END)
     textbox.insert(tk.END, 0)
 
+    # Open the user data file for reading and writing
     user_data = open(user_data_file, "r+")
     lines = user_data.readlines()
-    user_found.set(False)
+    user_found.set(False)  # Initialize a flag to track user presence
 
+    # Loop through lines in the user data
     for index, line in enumerate(lines):
+        # Check if the logged-in username is in the current line
         if logged_in_username.upper().strip() in line:
-            user_found.set(True)
+            user_found.set(True)  # Set the user found flag to True
             line_list = line.split("=")
             
+            # Check if the user has exceeded the recommended hydration amount
             if (int(line_list[2].strip().replace(".", "")) + current_value >= int(line_list[1].strip().replace(".", ""))):
                 print("User has drank more than the recommended amount!")
-                                
-                if (int(line_list[2].strip().replace(".", "")) + current_value >= int(line_list[1].strip().replace(".", ""))):
-                    print("Not the same value")
-                    new_line = "{}={}={}={}\n".format(logged_in_username.upper().strip(), str(line_list[1].strip().replace(".", "")), str(line_list[1].strip().replace(".", "")), current_time)
-                    hydration_progress_variable.set("HYDRATION PROGRESS: {}ml / {}ml".format(line_list[1].strip().replace(".", ""), line_list[1].strip().replace(".", "")))
-                    
-                    lines[index] = new_line
-                    user_data.seek(0)
-            
-                    user_data.writelines(lines)
-                    user_data.truncate()
-                    user_data.close()
-                    
-                    hydration_canvas.place_forget()
-                    leaderboard_user_found = BooleanVar()
-                    
-                    leaderboard_data = open(leaderboard_data_file, "r+")
-                    l_lines = leaderboard_data.readlines()
-                    leaderboard_user_found.set(False)
-                    
-                    for l_index, l_line in enumerate(l_lines):
-                        if logged_in_username.upper().strip() in l_line:
-                            leaderboard_user_found.set(True)
-                            print("Found")
-                            leaderboard_line_list = l_line.split("=")
-                            leaderboard_new_line = "{}={}\n".format(logged_in_username.upper().strip(), str(int(leaderboard_line_list[1]) + 1))
-            
-                            l_lines[l_index] = leaderboard_new_line
-                            leaderboard_data.seek(0)
-            
-                            leaderboard_data.writelines(l_lines)
-                            leaderboard_data.truncate()
-                            return
+                
+                # Update the user's hydration data to match the recommended amount
+                new_line = "{}={}={}={}\n".format(logged_in_username.upper().strip(), str(line_list[1].strip().replace(".", "")), str(line_list[1].strip().replace(".", "")), current_time)
+                hydration_progress_variable.set("HYDRATION PROGRESS: {}ml / {}ml".format(line_list[1].strip().replace(".", ""), line_list[1].strip().replace(".", "")))
+                
+                lines[index] = new_line
+                
+                user_data.seek(0)  # Move the file pointer to the beginning
+                user_data.writelines(lines)  # Write the modified 'lines' list back to the file
+                user_data.truncate()  # Truncate any extra content from the file
+                user_data.close()
+                
+                hydration_canvas.place_forget()  # Hide the hydration canvas
+                
+                leaderboard_user_found = BooleanVar()  # Initialize a flag for leaderboard user presence
+                
+                # Open the leaderboard data file for reading and writing
+                leaderboard_data = open(leaderboard_data_file, "r+")
+                l_lines = leaderboard_data.readlines()
+                leaderboard_user_found.set(False)  # Initialize the leaderboard user found flag
+                
+                # Loop through lines in the leaderboard data
+                for l_index, l_line in enumerate(l_lines):
+                    # Check if the logged-in username is in the current line
+                    if logged_in_username.upper().strip() in l_line:
+                        leaderboard_user_found.set(True)  # Set the leaderboard user found flag to True
+                        print("Found")
+                        leaderboard_line_list = l_line.split("=")
                         
-                    if (leaderboard_user_found.get() == False):
-                        leaderboard_line_list = line.split("=")       
-                        leaderboard_data.write("{}={}\n".format(logged_in_username.upper().strip(), str(1)))
-                        leaderboard_data.close()
+                        # Update the leaderboard entry with increased count
+                        leaderboard_new_line = "{}={}\n".format(logged_in_username.upper().strip(), str(int(leaderboard_line_list[1]) + 1))
+                        
+                        l_lines[l_index] = leaderboard_new_line
+                        
+                        leaderboard_data.seek(0)  # Move the file pointer to the beginning
+                        leaderboard_data.writelines(l_lines)  # Write the modified 'l_lines' list back to the file
+                        leaderboard_data.truncate()  # Truncate any extra content from the file
                         return
-                    
-                    break
+                        
+                # If leaderboard user not found, create a new entry
+                if (leaderboard_user_found.get() == False):
+                    leaderboard_line_list = line.split("=")       
+                    leaderboard_data.write("{}={}\n".format(logged_in_username.upper().strip(), str(1)))
+                    leaderboard_data.close()
+                    return
+                
+                break
             
+            # Update the user's hydration data based on the entered value
             new_line = "{}={}={}={}".format(logged_in_username.upper().strip(), line_list[1].strip().replace(".", ""), str(max(0, int(line_list[2].strip().replace(".", "")) + current_value)), str(line_list[3]))
             hydration_progress_variable.set("HYDRATION PROGRESS: {}ml / {}ml".format(max(0, int(line_list[2].strip().replace(".", "")) + current_value), line_list[1].strip().replace(".", "")))
 
             lines[index] = new_line
-            user_data.seek(0)
             
-            user_data.writelines(lines)
-            user_data.truncate()
+            user_data.seek(0)  # Move the file pointer to the beginning
+            user_data.writelines(lines)  # Write the modified 'lines' list back to the file
+            user_data.truncate()  # Truncate any extra content from the file
             user_data.close()
+            
             return
 
 def validate_integers(char):
