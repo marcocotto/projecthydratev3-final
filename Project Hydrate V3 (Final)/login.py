@@ -1,3 +1,11 @@
+"""
+Log-in page part of Project: Hydrate.
+
+Description:
+ - Records user input for username and password, then various checks are done to make sure the account exists in the user_logins.txt file
+   and checks to make sure the credentials match.
+"""
+
 # Imports.
 import subprocess
 import threading
@@ -21,6 +29,13 @@ root.title("Project Hydrate Log-In")
 
 # Function to center the window on the screen.
 def center_window(window):
+    """
+    Center the given window on the screen.
+    
+    Parameters:
+    - window: The Tkinter window to be centered.
+    """
+
     window.update_idletasks()
     width = window.winfo_width()
     height = window.winfo_height()
@@ -35,11 +50,19 @@ center_window(root)
 
 # Function to navigate to the main window.
 def goto_main_window():
+    """
+    Close the current window and open the main window.
+    """
+
     root.destroy()
     subprocess.call(["python", "main.py"])
 
 # Function to handle successful login.
 def successful_login(username_returned, real_username):
+    """
+    Handle successful login by directing to appropriate screens.
+    """
+
     root.destroy()
     if not (username_returned == "BADAPPLE"):
         subprocess.call(["python", "loading_screen.py", real_username])
@@ -94,6 +117,10 @@ password_warning_showing.set(False)
 
 # Function to display a warning for non-existent usernames.
 def usernamenonexistent_warning():
+    """
+    Display a warning if the entered username doesn't exist.
+    """
+
     if not (username_warning_showing.get()):
         username_warning_showing.set(True)
         username_non_existent_label.place(x=170, y=370)
@@ -104,6 +131,10 @@ def usernamenonexistent_warning():
 
 # Function to display a warning for incorrect passwords.
 def wrongpassword_warning():
+    """
+    Display a warning if the entered password is incorrect.
+    """
+
     if not (password_warning_showing.get()):
         password_warning_showing.set(True)
         wrong_password_label.place(x=185, y=410)
@@ -114,6 +145,10 @@ def wrongpassword_warning():
 
 # Function to display a warning for invalid passwords.
 def invalid_password_warning():
+    """
+    Display a warning for invalid passwords.
+    """
+    
     password_warning_label.place(relx=0.5, y=420, anchor=tk.CENTER)
     
     time.sleep(2)
@@ -121,6 +156,10 @@ def invalid_password_warning():
 
 # Function to send a login request.
 def send_login_request():
+    """
+    Send a login request and handle the response.
+    """
+
     if (username_changed.get() == True and password_changed.get() == True):        
         verifying_username.set(username_variable.get().strip().upper())        
         user_logins = open(user_logins_file, "r")
