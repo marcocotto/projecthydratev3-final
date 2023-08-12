@@ -1,3 +1,13 @@
+"""
+Home page part of Project: Hydrate (biggest file).
+
+Description:
+ - Biggest part of the program, this file checks the current logged in user, and checks if they've already calculated their hydration.
+   If they haven't, they will be prompted to by clicking the Calculator button.
+ - This page is the main root of the user's user interface to access all features such as calculator, weather and leaderboard.
+ - In this the user is also able to add or subtract amounts in ML to their hydration and track towards their goal via the entry box.
+"""
+
 # Imports.
 import subprocess
 import sys
@@ -27,21 +37,37 @@ leaderboard_data_file = "db\\leaderboard_data.txt"
 
 # Function to go to the main window.
 def goto_main_window():
+    """
+    Destroy the current window and navigate to the main window.
+    """
+
     root.destroy()
     subprocess.call(["python", "main.py"])
 
 # Function to go to the hydration calculator window.
 def goto_calculator_window():
+    """
+    Destroy the current window and navigate to the hydration calculator window.
+    """
+
     root.destroy()
     subprocess.call(["python", "hydration_calculator.py", logged_in_username])
 
 # Function to go to the leaderboard window.
 def goto_leaderboard_window():
+    """
+    Destroy the current window and navigate to the leaderboard window.
+    """
+
     root.destroy()
     subprocess.call(["python", "leaderboard.py", logged_in_username])
     
 # Function to go to the weather window.
 def goto_weather_window():
+    """
+    Destroy the current window and navigate to the weather window.
+    """
+
     root.destroy()
     subprocess.call(["python", "weather.py", logged_in_username])
 
@@ -136,35 +162,9 @@ user_recommended_hydration.set(0)
 
 current_time = int(time.time())
 
-'''
-currently_updating_timer = BooleanVar()
-currently_updating_timer.set(True)
-
-def update_timer():
-    while (True):
-        time.sleep(10)
-        if (currently_updating_timer.get() == True):
-            current_time = int(time.time())
-            print("Updated")
-        else:
-            break
-    
-timer_thread = threading.Thread(target=update_timer)
-timer_thread.start()
-'''
-
 signin_options_label = Label(root, textvariable=username_variable, fg="black", font=("Simplifica", 20, "bold"))
 hello_label = Label(root, text="HELLO", fg="black", font=("Simplifica", 20))
 signup_button = ttk.Button(root, text="L O G  O U T", image=button_image_tk, compound="center", command=goto_main_window)
-
-'''
-def close_app():
-    print("Closed")
-    root.destroy()
-    currently_updating_timer.set(False)
-
-root.protocol("WM_DELETE_WINDOW", close_app)
-'''
 
 # Function to handle subtract canvas click event.
 def subtract_click(event):
@@ -180,6 +180,10 @@ def add_click(event):
 
 # Functions to handle adding and subtracting values.
 def subtract():
+    """
+    Subtract a value from the textbox value.
+    """
+
     if (textbox.get() == ""):
         textbox.delete(0, tk.END)
         textbox.insert(tk.END, 0)
@@ -190,6 +194,10 @@ def subtract():
     textbox.insert(tk.END, str(new_value))
 
 def add():
+    """
+    Add a value to the textbox value.
+    """
+
     if (textbox.get() == ""):
         textbox.delete(0, tk.END)
         textbox.insert(tk.END, 0)
@@ -201,6 +209,10 @@ def add():
 
 # Function to apply changes to user's hydration status based on input event
 def apply(event):
+    """
+    Apply the changes to the user's hydration based on entered value.
+    """
+    
     # Check if the textbox is empty
     if (textbox.get() == ""):
         textbox.delete(0, tk.END)
@@ -258,7 +270,6 @@ def apply(event):
                     # Check if the logged-in username is in the current line
                     if logged_in_username.upper().strip() in l_line:
                         leaderboard_user_found.set(True)  # Set the leaderboard user found flag to True
-                        print("Found")
                         leaderboard_line_list = l_line.split("=")
                         
                         # Update the leaderboard entry with increased count
