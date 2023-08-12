@@ -1,3 +1,12 @@
+"""
+Weather checker part of Project: Hydrate.
+
+Description:
+ - This part of the program utilises a free weather API named OpenWeatherMap, utilising an API key and a selected city via a dropdown
+   The code will run through the API and report back certain data such as temperature, humidity levels to determine if the user should
+   drink more water as well as the weather condition displayed by an icon
+"""
+
 # Imports.
 import subprocess
 import sys
@@ -33,6 +42,13 @@ root.title("Project Hydrate: Weather")
 
 # Function to center the window on the screen.
 def center_window(window):
+    """
+    Center the given window on the screen.
+    
+    Parameters:
+    - window: The Tkinter window to be centered.
+    """
+
     window.update_idletasks()
     width = window.winfo_width()
     height = window.winfo_height()
@@ -89,11 +105,19 @@ style.configure("TButton", font=("Arial", 12))
 
 # Function to close the current window and open the home window with the specified logged-in username
 def goto_home_window():
+    """
+    Close the current window and navigate to the home window.
+    """
+
     root.destroy()  # Close the current window
     subprocess.call(["python", "home.py", logged_in_username])  # Open the home window
 
 # Function to retrieve weather data for a given city
 def get_weather_data(city):
+    """
+    Retrieve weather data for a given city using the OpenWeatherMap API.
+    """
+
     url = BASE_URL.format(city=city) + API_KEY
     response = requests.get(url)
     data = response.json()
@@ -101,6 +125,10 @@ def get_weather_data(city):
 
 # Function to convert Unix time to a formatted timestamp
 def unix_time_to_timestamp(unix_time):
+    """
+    Convert Unix time to a formatted timestamp.
+    """
+
     # Convert Unix time to a datetime object
     dt_object = datetime.datetime.fromtimestamp(unix_time)
 
@@ -112,6 +140,10 @@ def unix_time_to_timestamp(unix_time):
 
 # Function to check if it's night time based on weather data
 def is_night_time(weather_data):
+    """
+    Check if it's night time based on weather data.
+    """
+
     current_time = weather_data["dt"]
     
     unix_time_to_timestamp(current_time)  # Convert and set the last updated timestamp
@@ -122,6 +154,10 @@ def is_night_time(weather_data):
 
 # Function to determine the recommended drinking amount based on weather data
 def determine_drinking_amount(weather_data):
+    """
+    Determine the recommended drinking amount based on weather data.
+    """
+
     weather_id = weather_data['weather'][0]['id']
     temp_kelvin = weather_data['main']['temp']
     humidity = weather_data['main']['humidity']
@@ -152,6 +188,10 @@ def determine_drinking_amount(weather_data):
 
 # Function to handle fetching and displaying weather data
 def handle_weather():
+    """
+    Fetch weather data and update the interface with the recommended message.
+    """
+     
     selected_city = city_variable.get()
     if selected_city:
         weather_data = get_weather_data(selected_city)
@@ -160,6 +200,10 @@ def handle_weather():
 
 # Function to display weather data and update the interface
 def display_weather():
+    """
+    Display weather data and update the interface with the recommended message.
+    """
+    
     temperature_message.set("")
     last_updated_variable.set("")
     
