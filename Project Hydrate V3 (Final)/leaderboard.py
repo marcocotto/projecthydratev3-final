@@ -1,3 +1,10 @@
+"""
+Leaderboard page part of Project: Hydrate.
+
+Description:
+ - Reads the leaderboard_data file and creates a table to sort all usernames in descending order
+"""
+
 # Imports
 import subprocess
 import sys
@@ -27,6 +34,13 @@ root.title("Project Hydrate: Hydration Leaderboard")
 
 # Function to center the window on the screen.
 def center_window(window):
+    """
+    Center the given window on the screen.
+    
+    Parameters:
+    - window: The Tkinter window to be centered.
+    """
+
     window.update_idletasks()
     width = window.winfo_width()
     height = window.winfo_height()
@@ -42,9 +56,12 @@ center_window(root)
 
 # Function to navigate back to the home window.
 def goto_home_window():
+    """
+    Close the current window and open the home window.
+    """
+
     root.destroy()
     subprocess.call(["python", "home.py", logged_in_username])
-
 
 # Creating the back button and its functionality.
 back_button_image = Image.open("assets\\backbutton.png")
@@ -62,6 +79,10 @@ waves_bottom_label.place(x=-2, y=0)
 
 # Function to create the leaderboard table.
 def create_table(parent_frame):
+    """
+    Create a leaderboard table within the specified parent frame.
+    """
+
     # Create a frame for the table.
     table_frame = ttk.Frame(parent_frame)
     table_frame.place(relx=0.5, rely=0.5, anchor="center")
