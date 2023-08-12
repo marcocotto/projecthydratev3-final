@@ -1,3 +1,11 @@
+"""
+Easter egg video page part of Project: Hydrate.
+
+Description:
+ - Completely and utterly just an easter egg, made for fun. All this does is just play a video if the user logs in with the username badapple and the password easteregg
+ - This part serves no real purpose on the program but is just completely made for fun.
+"""
+
 import subprocess
 from tkinter import *
 
@@ -16,6 +24,13 @@ root.title("Project Hydrate: Bad Apple (Easter Egg)")
 root.geometry("640x480")
 
 def center_window(window):
+    """
+    Center the given window on the screen.
+    
+    Parameters:
+    - window: The Tkinter window to be centered.
+    """
+
     window.update_idletasks()
     width = window.winfo_width()
     height = window.winfo_height()
@@ -42,6 +57,10 @@ player.set_hwnd(canvas.winfo_id())
 player.play()
 
 def stop_video():
+    """
+    Stop the video playback and close the window.
+    """
+    
     player.stop()
     root.destroy()
     subprocess.call(["python", "main.py"])
