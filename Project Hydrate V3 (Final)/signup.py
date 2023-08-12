@@ -1,3 +1,11 @@
+"""
+Sign-up page part of Project: Hydrate.
+
+Description:
+ - Records user input for username and password, then various checks are done to make sure the account is unique
+   and all password validation checks are passed
+"""
+
 # Imports.
 import re
 import subprocess
@@ -22,6 +30,13 @@ root.title("Project Hydrate Sign-Up")  # Set the window title.
 
 # Function to center the window on the screen.
 def center_window(window):
+    """
+    Center the given window on the screen.
+    
+    Parameters:
+    - window: The Tkinter window to be centered.
+    """
+
     window.update_idletasks()
     width = window.winfo_width()
     height = window.winfo_height()
@@ -37,6 +52,10 @@ center_window(root)
 
 # Function to navigate to the main window.
 def goto_main_window():
+    """
+    Close the current window and open the main window.
+    """
+    
     root.destroy()
     subprocess.call(["python", "main.py"])
 
@@ -90,6 +109,10 @@ account_created_text.set(False)
 
 # Function to display a warning if the username already exists.
 def username_exists_warning():
+    """
+    Display a warning if the username already exists.
+    """
+
     if not username_warning_showing.get():
         account_created_text.set(True)
         
@@ -104,6 +127,10 @@ def username_exists_warning():
 
 # Function to display a success message after creating an account.
 def account_created_success():
+    """
+    Display a success message after successfully creating an account.
+    """
+
     if not account_created_text.get():
         account_created_text.set(True)
         account_created_label.place(x=151, y=370)
@@ -114,6 +141,10 @@ def account_created_success():
 
 # Function to display a warning for invalid passwords.
 def invalid_password_warning():
+    """
+    Display a warning for invalid passwords.
+    """
+
     password_warning_label.place(relx=0.5, y=420, anchor=tk.CENTER)
     
     time.sleep(2)
@@ -121,6 +152,10 @@ def invalid_password_warning():
 
 # Function to handle the sign-up process.
 def send_signup_request():
+    """
+    Handle the sign-up process by validating inputs and creating accounts.
+    """
+    
     if username_changed.get() and password_changed.get():
         password = password_variable.get()
         
@@ -218,6 +253,10 @@ back_button.place(x=20, y=20)
 
 # Event handling for username and password fields.
 def username_focus(event):
+    """
+    Event handler when username field gains focus.
+    """
+
     if username_box.get() == "Username":
         if not username_changed.get():
             username_changed.set(True)
@@ -225,6 +264,10 @@ def username_focus(event):
             username_box.configure(foreground="black")
 
 def username_leave(event):
+    """
+    Event handler when username field loses focus.
+    """
+
     if username_box.get() == "":
         if username_changed.get():
             username_changed.set(False)
@@ -232,6 +275,10 @@ def username_leave(event):
             username_box.configure(foreground="gray")
 
 def password_focus(event):
+    """
+    Event handler when password field gains focus.
+    """
+
     if password_box.get() == "Password":
         if not password_changed.get():
             password_changed.set(True)
@@ -239,6 +286,10 @@ def password_focus(event):
             password_box.configure(foreground="black", show="*")
 
 def password_leave(event):
+    """
+    Event handler when password field loses focus.
+    """
+
     if password_box.get() == "":
         if password_changed.get():
             password_changed.set(False)
