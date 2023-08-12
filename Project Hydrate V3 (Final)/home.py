@@ -17,9 +17,7 @@ import tkinter as tk
 
 from tkinter import ttk
 from PIL import Image, ImageTk
-
 import time
-import threading
 
 root = Tk()
 root.geometry("495x595")
