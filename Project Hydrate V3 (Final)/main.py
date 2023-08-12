@@ -1,3 +1,11 @@
+"""
+Main page part of Project: Hydrate (first page that will open).
+
+Description:
+ - This part of the program is the first thing the user will see when opening the app, it is the part that will give
+   the user the option to either sign up or log in.
+"""
+
 # Imports.
 import subprocess
 from tkinter import *
@@ -15,6 +23,13 @@ root.title("Project Hydrate")  # Set the window title.
 
 # Function to center the window on the screen.
 def center_window(window):
+    """
+    Center the given window on the screen.
+    
+    Parameters:
+    - window: The Tkinter window to be centered.
+    """
+
     window.update_idletasks()
     width = window.winfo_width()
     height = window.winfo_height()
@@ -30,11 +45,19 @@ center_window(root)
 
 # Function to navigate to the login window.
 def goto_login_window():
+    """
+    Close the current window and navigate to the login window.
+    """
+
     root.destroy()
     subprocess.call(["python", "login.py"])
 
 # Function to navigate to the signup window.
 def goto_signup_window():
+    """
+    Close the current window and navigate to the signup window.
+    """
+    
     root.destroy()
     subprocess.call(["python", "signup.py"])
 
