@@ -1,3 +1,12 @@
+"""
+Loading screen part of Project: Hydrate.
+
+Description:
+ - This part of the program is purely aesthetical, as there really isn't a reason to have a loading bar, but I thought it would
+   just make the program look a bit neater to have a custom loading bar. This just switches between numerous images to give
+   the impression that the loading bar is completing
+"""
+
 # Imports.
 import subprocess
 import sys
@@ -31,6 +40,13 @@ root.title("Project Hydrate")
 
 # Function to center the window on the screen.
 def center_window(window):
+    """
+    Center the given window on the screen.
+    
+    Parameters:
+    - window: The Tkinter window to be centered.
+    """
+
     window.update_idletasks()
     width = window.winfo_width()
     height = window.winfo_height()
@@ -97,11 +113,19 @@ progressbar_6_label = Label(root, image=progress_bar_image_6_tk)
 
 # Function to navigate to the home page.
 def goto_home_page():
+    """
+    Close the current window and navigate to the home page.
+    """
+     
     root.destroy()
     subprocess.call(["python", "home.py", recieved_username])
 
 # Function to handle the loading bar animation and message updates.
 def handle_loading_bar():
+    """
+    Handle the loading bar animation and update loading messages.
+    """
+
     # Show and hide progress bars and update loading message at specific intervals.
     root.after(200, lambda: progressbar_1_label.place(x=110, y=380))
     root.after(600, lambda: progressbar_1_label.place_forget())
