@@ -1,16 +1,24 @@
+"""
+Hydration calculator page part of Project: Hydrate.
+
+Description:
+ - Records user weight via an entry box
+ - Records user gender and records user activity level
+   then calculates based on their inputs what their recommended hydration should be
+"""
+
 # Imports.
 import subprocess
 import sys
 
 from tkinter import *
-import tkinter as ttk
-
 from tkinter import ttk
 from PIL import Image, ImageTk
 
 import tkinter as tk
 import time
 import threading
+
 
 root = Tk()
 root.geometry("495x595")
@@ -21,18 +29,25 @@ logged_in_username = ""
 # Check if a username is provided.
 if (len(sys.argv) > 1):
     logged_in_username = sys.argv[1]
-    
 if (logged_in_username == ""):
     logged_in_username = "Guest"
 
-root.iconbitmap(default="assets\icon.ico")
+root.iconbitmap(default="assets/icon.ico")
 user_data_file = "db\\user_data.txt"
-    
 root.resizable(width=False, height=False)
 root.title("Project Hydrate: Hydration Calculator")
 
 # Function to center the window on the screen.
+
+
 def center_window(window):
+    """
+    Center the given window on the screen.
+    
+    Parameters:
+    - window: The Tkinter window to be centered.
+    """
+
     window.update_idletasks()
     width = window.winfo_width()
     height = window.winfo_height()
@@ -59,6 +74,10 @@ weight_success_label = ttk.Label(canvas, text="Weight successfully calculated!",
 
 # Function to display a success message when hydration has been calculated.
 def weight_success_message():
+    """
+    Display a success message indicating successful hydration calculation.
+    """
+
     weight_success_label.place(relx=0.5, y=295, anchor=tk.CENTER)        
     time.sleep(2)
 
@@ -67,6 +86,10 @@ def weight_success_message():
 
 # Function to display a warning if the weight input is left blank.
 def invalid_weight_warning():
+    """
+    Display a warning message for invalid weight input.
+    """
+
     invalid_weight_label.place(relx=0.5, y=295, anchor=tk.CENTER)        
     time.sleep(2)
 
@@ -74,6 +97,10 @@ def invalid_weight_warning():
 
 # Function to calculate hydration.
 def calculate_hydration():
+    """
+    Calculate recommended hydration based on user inputs.
+    """
+
     # Check if weight entry is empty
     if (weight_entry.get() == ""):
         # Create a thread to display an invalid weight warning
@@ -169,6 +196,10 @@ def calculate_hydration():
 
 # Function to validate integers and allowed characters
 def validate_integers(char):
+    """
+    Validate if the entered character is a digit, plus sign, or minus sign.
+    """
+
     # Check if the character is a digit, plus sign, or minus sign
     if char.isdigit() or "-" in char or "+" in char:
         return True
