@@ -56,7 +56,7 @@ def goto_home_window():
     """
 
     root.destroy()
-    subprocess.call(["python", "home.py", LOGGED_IN_USERNAME])
+    subprocess.Popen(["python", "home.py", LOGGED_IN_USERNAME])
 
 # Creating the back button and its functionality.
 back_button_image = Image.open("assets\\backbutton.png")
