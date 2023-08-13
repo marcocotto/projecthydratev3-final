@@ -44,7 +44,7 @@ def goto_main_window():
     """
 
     root.destroy()
-    subprocess.call(["python", "main.py"])
+    subprocess.Popen(["python", "main.py"])
 
 # Function to go to the hydration calculator window.
 def goto_calculator_window():
@@ -53,7 +53,7 @@ def goto_calculator_window():
     """
 
     root.destroy()
-    subprocess.call(["python", "hydration_calculator.py", LOGGED_IN_USERNAME])
+    subprocess.Popen(["python", "hydration_calculator.py", LOGGED_IN_USERNAME])
 
 # Function to go to the leaderboard window.
 def goto_leaderboard_window():
@@ -62,7 +62,7 @@ def goto_leaderboard_window():
     """
 
     root.destroy()
-    subprocess.call(["python", "leaderboard.py", LOGGED_IN_USERNAME])
+    subprocess.Popen(["python", "leaderboard.py", LOGGED_IN_USERNAME])
 # Function to go to the weather window.
 def goto_weather_window():
     """
@@ -70,7 +70,7 @@ def goto_weather_window():
     """
 
     root.destroy()
-    subprocess.call(["python", "weather.py", LOGGED_IN_USERNAME])
+    subprocess.Popen(["python", "weather.py", LOGGED_IN_USERNAME])
 
 # Set window properties
 root.resizable(width=False, height=False)
