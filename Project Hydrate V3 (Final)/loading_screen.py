@@ -100,7 +100,7 @@ waves_bottom_label = tk.Label(root, image=waves_bottom_tk)
 title_text_label = tk.Label(root, image=title_text_icon_tk)
 
 # Create a string variable for loading message and label to display it.
-loading_message = tk. StringVar()
+loading_message = tk.StringVar()
 loading_message.set("LOADING ASSETS")
 
 loading_message_label = tk.Label(
