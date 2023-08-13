@@ -2,8 +2,10 @@
 Loading screen part of Project: Hydrate.
 
 Description:
- - This part of the program is purely aesthetical, as there really isn't a reason to have a loading bar, but I thought it would
-   just make the program look a bit neater to have a custom loading bar. This just switches between numerous images to give
+ - This part of the program is purely aesthetical, 
+   as there really isn't a reason to have a loading bar, but I thought it would
+   just make the program look a bit neater to have a 
+   custom loading bar. This just switches between numerous images to give
    the impression that the loading bar is completing
 """
 
@@ -12,9 +14,9 @@ import subprocess
 import sys
 
 import threading
-from tkinter import *
+import tkinter as tk
 
-from tkinter import ttk
+from tkinter import ttk, Tk
 from PIL import Image, ImageTk
 
 # Create the main window.
@@ -22,19 +24,19 @@ root = Tk()
 root.geometry("495x595")
 
 # Create the username variable.
-recieved_username = ""
+RECEIVED_USERNAME = ""
 
 # Check if a username is provided.
 if len(sys.argv) > 1:
-    recieved_username = sys.argv[1]
-    print(recieved_username)
+    RECEIVED_USERNAME = sys.argv[1]
+    print(RECEIVED_USERNAME)
 
 # If no username is received, set it to "Guest".
-if recieved_username == "":
-    recieved_username = "Guest"
+if RECEIVED_USERNAME == "":
+    RECEIVED_USERNAME = "Guest"
 
 # Set the window icon and title.
-root.iconbitmap(default="assets\icon.ico")
+root.iconbitmap(default="assets\\icon.ico")
 root.resizable(width=False, height=False)
 root.title("Project Hydrate")
 
@@ -52,24 +54,23 @@ def center_window(window):
     height = window.winfo_height()
     screen_width = window.winfo_screenwidth()
     screen_height = window.winfo_screenheight()
-    x = (screen_width - width) // 2
-    y = (screen_height - height) // 2
-    window.geometry(f"{width}x{height}+{x}+{y}")
+    width_x = (screen_width - width) // 2
+    width_y = (screen_height - height) // 2
+    window.geometry(f"{width}x{height}+{width_x}+{width_y}")
 
-# Center the main window.
 center_window(root)
 
 # Load images and create image objects.
 menu_icon = Image.open("assets\\iconmain.png")
-waves_bottom = Image.open("assets\waveshalf.png")
+waves_bottom = Image.open("assets\\waveshalf.png")
 title_text_icon = Image.open("assets\\titletext.png")
 button_image = Image.open("assets\\buttonimage.png")
-progress_bar_image_1 = Image.open("assets\loadingbar1percentage.png")
-progress_bar_image_2 = Image.open("assets\loadingbar2percentage.png")
-progress_bar_image_3 = Image.open("assets\loadingbar3percentage.png")
-progress_bar_image_4 = Image.open("assets\loadingbar4percentage.png")
-progress_bar_image_5 = Image.open("assets\loadingbar5percentage.png")
-progress_bar_image_6 = Image.open("assets\loadingbar6percentage.png")
+progress_bar_image_1 = Image.open("assets\\loadingbar1percentage.png")
+progress_bar_image_2 = Image.open("assets\\loadingbar2percentage.png")
+progress_bar_image_3 = Image.open("assets\\loadingbar3percentage.png")
+progress_bar_image_4 = Image.open("assets\\loadingbar4percentage.png")
+progress_bar_image_5 = Image.open("assets\\loadingbar5percentage.png")
+progress_bar_image_6 = Image.open("assets\\loadingbar6percentage.png")
 
 # Resize the images.
 menu_icon = menu_icon.resize((108, 141))
@@ -94,31 +95,37 @@ progress_bar_image_5_tk = ImageTk.PhotoImage(progress_bar_image_5)
 progress_bar_image_6_tk = ImageTk.PhotoImage(progress_bar_image_6)
 
 # Create labels with images.
-menu_icon_label = Label(root, image=menu_icon_tk)
-waves_bottom_label = Label(root, image=waves_bottom_tk)
-title_text_label = Label(root, image=title_text_icon_tk)
+menu_icon_label = tk.Label(root, image=menu_icon_tk)
+waves_bottom_label = tk.Label(root, image=waves_bottom_tk)
+title_text_label = tk.Label(root, image=title_text_icon_tk)
 
 # Create a string variable for loading message and label to display it.
-loading_message = StringVar()
+loading_message = tk. StringVar()
 loading_message.set("LOADING ASSETS")
-loading_message_label = Label(root, textvariable=loading_message, fg="darkgray", font=("Arial", 14))
+
+loading_message_label = tk.Label(
+    root,
+    textvariable=loading_message,
+    fg="darkgray",
+    font=("Arial", 14)
+)
 
 # Create labels for progress bars.
-progressbar_1_label = Label(root, image=progress_bar_image_1_tk)
-progressbar_2_label = Label(root, image=progress_bar_image_2_tk)
-progressbar_3_label = Label(root, image=progress_bar_image_3_tk)
-progressbar_4_label = Label(root, image=progress_bar_image_4_tk)
-progressbar_5_label = Label(root, image=progress_bar_image_5_tk)
-progressbar_6_label = Label(root, image=progress_bar_image_6_tk)
+progressbar_1_label = tk.Label(root, image=progress_bar_image_1_tk)
+progressbar_2_label = tk.Label(root, image=progress_bar_image_2_tk)
+progressbar_3_label = tk.Label(root, image=progress_bar_image_3_tk)
+progressbar_4_label = tk.Label(root, image=progress_bar_image_4_tk)
+progressbar_5_label = tk.Label(root, image=progress_bar_image_5_tk)
+progressbar_6_label = tk.Label(root, image=progress_bar_image_6_tk)
 
 # Function to navigate to the home page.
 def goto_home_page():
     """
     Close the current window and navigate to the home page.
     """
-     
+
     root.destroy()
-    subprocess.call(["python", "home.py", recieved_username])
+    subprocess.call(["python", "home.py", RECEIVED_USERNAME])
 
 # Function to handle the loading bar animation and message updates.
 def handle_loading_bar():
@@ -128,20 +135,20 @@ def handle_loading_bar():
 
     # Show and hide progress bars and update loading message at specific intervals.
     root.after(200, lambda: progressbar_1_label.place(x=110, y=380))
-    root.after(600, lambda: progressbar_1_label.place_forget())
+    root.after(600, progressbar_1_label.place_forget())
     root.after(600, lambda: progressbar_2_label.place(x=110, y=380))
     root.after(750, lambda: loading_message.set("CLEANING UP THINGS"))
     root.after(750, lambda: loading_message_label.place(x=140, y=330))
-    root.after(900, lambda: progressbar_2_label.place_forget())
+    root.after(900, progressbar_2_label.place_forget())
     root.after(900, lambda: progressbar_3_label.place(x=110, y=380))
-    root.after(1000, lambda: progressbar_3_label.place_forget())
+    root.after(1000, progressbar_3_label.place_forget())
     root.after(1000, lambda: progressbar_4_label.place(x=110, y=380))
     root.after(1100, lambda: loading_message.set("LOADING USER DATA"))
-    root.after(1300, lambda: progressbar_4_label.place_forget())
+    root.after(1300, progressbar_4_label.place_forget())
     root.after(1300, lambda: progressbar_5_label.place(x=110, y=380))
     root.after(2000, lambda: loading_message.set("FINISHING UP"))
     root.after(2000, lambda: loading_message_label.place(x=175, y=330))
-    root.after(2500, lambda: progressbar_5_label.place_forget())
+    root.after(2500, progressbar_5_label.place_forget())
     root.after(2500, lambda: progressbar_6_label.place(x=110, y=380))
     root.after(2500, lambda: loading_message.set("LOADED!"))
     root.after(2500, lambda: loading_message_label.place(x=195, y=330))
