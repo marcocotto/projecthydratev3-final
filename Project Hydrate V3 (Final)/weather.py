@@ -108,7 +108,7 @@ def goto_home_window():
     """
 
     root.destroy()  # Close the current window
-    subprocess.call(["python", "home.py", LOGGED_IN_USERNAME])  # Open the home window
+    subprocess.Popen(["python", "home.py", LOGGED_IN_USERNAME])  # Open the home window
 
 # Function to retrieve weather data for a given city
 def get_weather_data(city):
