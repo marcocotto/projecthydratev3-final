@@ -209,6 +209,7 @@ def calculate_hydration():
             )
 
             # Close the user data file
+            user_data.write(new_line)
             user_data.close()
 
             # Return since the update is complete
