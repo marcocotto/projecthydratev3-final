@@ -55,7 +55,7 @@ def goto_main_window():
     """
 
     root.destroy()
-    subprocess.call(["python", "main.py"])
+    subprocess.Popen(["python", "main.py"])
 
 # Function to handle successful login.
 def successful_login(username_returned, real_username):
@@ -65,9 +65,9 @@ def successful_login(username_returned, real_username):
 
     root.destroy()
     if not username_returned == "BADAPPLE":
-        subprocess.call(["python", "loading_screen.py", real_username])
+        subprocess.Popen(["python", "loading_screen.py", real_username])
     else:
-        subprocess.call(["python", "badapple_easteregg.py"])
+        subprocess.Popen(["python", "badapple_easteregg.py"])
 
 # Load and resize the images used in the GUI.
 menu_icon = Image.open("assets\\iconmain.png")
