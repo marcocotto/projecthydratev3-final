@@ -55,7 +55,7 @@ def goto_main_window():
     """
 
     root.destroy()
-    subprocess.call(["python", "main.py"])
+    subprocess.Popen(["python", "main.py"])
 
 # Load and resize images for the GUI elements.
 menu_icon = Image.open("assets\\iconmain.png")
