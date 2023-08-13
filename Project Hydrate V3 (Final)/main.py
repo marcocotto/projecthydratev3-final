@@ -49,7 +49,7 @@ def goto_login_window():
     """
 
     root.destroy()
-    subprocess.call(["python", "login.py"])
+    subprocess.Popen(["python", "login.py"])
 
 # Function to navigate to the signup window.
 def goto_signup_window():
@@ -58,7 +58,7 @@ def goto_signup_window():
     """
 
     root.destroy()
-    subprocess.call(["python", "signup.py"])
+    subprocess.Popen(["python", "signup.py"])
 
 # Load and resize images for the GUI elements.
 menu_icon = Image.open("assets\\iconmain.png")
