@@ -125,7 +125,7 @@ def goto_home_page():
     """
 
     root.destroy()
-    subprocess.call(["python", "home.py", RECEIVED_USERNAME])
+    subprocess.Popen(["python", "home.py", RECEIVED_USERNAME])
 
 # Function to handle the loading bar animation and message updates.
 def handle_loading_bar():
