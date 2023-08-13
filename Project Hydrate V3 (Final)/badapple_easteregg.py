@@ -65,7 +65,7 @@ def stop_video():
     """
     player.stop()
     root.destroy()
-    subprocess.call(["python", "main.py"])
+    subprocess.Popen(["python", "main.py"])
 
 stop_button = ttk.Button(root, text="Stop", command=stop_video)
 stop_button.pack()
