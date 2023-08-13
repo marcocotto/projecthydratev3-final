@@ -62,7 +62,7 @@ def goto_home_window():
     """
 
     root.destroy()
-    subprocess.call(["python", "home.py", LOGGED_IN_USERNAME])
+    subprocess.Popen(["python", "home.py", LOGGED_IN_USERNAME])
 
 canvas = tk.Canvas(root, width=300, height=400)
 canvas.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
